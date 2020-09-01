@@ -668,6 +668,9 @@ h3 {
   border: 0;
 }
 
+main {
+    background-color: white;
+}
 main.l-main {
   width: 100%;
   height: 100%;

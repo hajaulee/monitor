@@ -151,24 +151,59 @@ var Dashboard = function () {
 			});
 
 			$('[data-toggle="tooltip"]').tooltip(global.tooltipOptions);
-
-      $(".js-hamburger").click()
-		}
+		},
+        open: function(){
+            if (!$("body").hasClass("sidebar-is-expanded")){
+                $(".js-hamburger").click()
+            }
+        },
+        close: function close(){
+            if ($("body").hasClass("sidebar-is-expanded")){
+                $(".js-hamburger").click()
+            }
+        }
 	};
 }();
 
+var LoginForm = function(){
+    return {
+        init: function(){
+            this.open()
+        },
+        open: function open(){
+            $('.white-panel').removeClass('right-log');
+            $('.login-show').addClass('show-log-panel');
+        },
+        close: function close(){
+            $('.white-panel').addClass('right-log');
+            $('.login-show').removeClass('show-log-panel');
+        }
+    }
+}();
 
 $(document).ready(function(){
 
-    $('#login-bt').on('click', function(){
-      $('.login-reg-panel').css('display', 'none');
-      $('.dashboard').css('display', 'unset');
+    LoginForm.init();
+    Dashboard.init();
 
-      setTimeout(Dashboard.init, 200);
-    });
+    function onlogin(){
+        $('.login-reg-panel').css('display', 'none');
+        $('.dashboard').css('display', 'unset');
+        
+        setTimeout(Dashboard.open, 200);
+        LoginForm.close();
+    }
 
-    $('.white-panel').removeClass('right-log');
-    $('.login-show').addClass('show-log-panel');
+    function onlogout(){
+        $('.login-reg-panel').css('display', 'block');
+        $('.dashboard').css('display', 'none');
+
+        setTimeout(LoginForm.open, 200);
+        Dashboard.close();
+    }
+
+    $('#login-bt').on('click', onlogin);
+    $('.c-header-icon.logout').on('click', onlogout)
 
 });
 
