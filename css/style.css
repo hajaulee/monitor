@@ -3,7 +3,8 @@ body{
   font-family: 'Mukta', sans-serif;
 	height:100vh;
 	min-height:550px;
-	background-image: url('/dl/images/bg.jpeg');
+  background-image: url('/dl/images/bg.jpeg');
+  background-image: url('/images/bg.jpeg');
 	background-repeat: no-repeat;
 	background-size:cover;
 	background-position:center;

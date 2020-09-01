@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Monitor</title>
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'>
@@ -24,8 +24,8 @@
       <div class="white-panel right-log">
           <div class="login-show">
               <h2>LOGIN</h2>
-              <input type="text" placeholder="Email">
-              <input type="password" placeholder="Password">
+              <input type="text" id="username" placeholder="Email">
+              <input type="password" id="password" placeholder="Password">
               <input type="button" id="login-bt" value="Login">
           </div>
 
@@ -111,6 +111,24 @@
 
 <script type="text/javascript">
 
+var username = "";
+var api_key  = "";
+
+function hash(s) {
+    var hash = 0, i, chr;
+    for (i = 0; i < s.length; i++) {
+        chr   = s.charCodeAt(i);
+        hash  = ((hash << 5) - hash) + chr;
+        hash |= 0; 
+    }
+    return hash.toString();
+}
+
+function create_api(s){
+    return hash(s) + hash(s.slice(2)) + hash(s.slice(0, -2))
+}
+
+
 var Dashboard = function () {
 	var global = {
 		tooltipOptions: {
@@ -187,6 +205,13 @@ $(document).ready(function(){
     Dashboard.init();
 
     function onlogin(){
+
+        username = $("#username").val()
+        let password = $("#password").val()
+        api_key = create_api(username + '$$$' + password)
+        $('.logo__txt').html(username)
+
+
         $('.login-reg-panel').css('display', 'none');
         $('.dashboard').css('display', 'unset');
         
@@ -195,6 +220,14 @@ $(document).ready(function(){
     }
 
     function onlogout(){
+
+        
+        $("#username").val(username)
+        username = '';
+        api_key = '';
+        $('logo__txt').html(username)
+
+
         $('.login-reg-panel').css('display', 'block');
         $('.dashboard').css('display', 'none');
 
