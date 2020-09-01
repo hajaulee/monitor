@@ -1,65 +1,176 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
-    <title>animated sinin and signup panel. animated login and registeration page, popup,  - Bootsnipp.com</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <!-- <style type="text/css">
-    </style> -->
-    <link href="css/login.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-</head>
-<body>
-<div class="login-reg-panel">
-							
-		<div class="register-info-box">
-			<h2>Homepage</h2>
-			<p>Github repository</p>
-            <a id="label-login" href="https://github.com/hajaulee/dl" >Go</a>
-		</div>
-							
-		<div class="white-panel">
-			<div class="login-show">
-				<h2>LOGIN</h2>
-				<input type="text" placeholder="Email">
-				<input type="password" placeholder="Password">
-				<input type="button" value="Login">
-			</div>
+<html lang="en" >
 
-		</div>
-	</div>
+<head>
+    <meta charset="UTF-8">
+    <title>An Anonymous Pen on CodePen</title>
+    <link rel="stylesheet" href="css/login.css">
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'>
+    <style class="cp-pen-styles">@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700&subset=latin-ext");
+</style></head>
+
+<body class="sidebar-is-reduced">
+
+  <div class="login-reg-panel">
+                
+      <div class="register-info-box">
+          <h2>Homepage</h2>
+          <p>Github repository</p>
+          <a id="label-login" href="https://github.com/hajaulee/dl" >Go</a>
+      </div>
+                          
+      <div class="white-panel right-log">
+          <div class="login-show">
+              <h2>LOGIN</h2>
+              <input type="text" placeholder="Email">
+              <input type="password" placeholder="Password">
+              <input type="button" id="login-bt" value="Login">
+          </div>
+
+      </div>
+  </div>
+  <div class="dashboard" style="display: none;">
+    <header class="l-header">
+      <div class="l-header__inner clearfix">
+        <div class="c-header-icon js-hamburger">
+          <div class="hamburger-toggle"><span class="bar-top"></span><span class="bar-mid"></span><span class="bar-bot"></span></div>
+        </div>
+        <div class="header-icons-group">
+          <div class="c-header-icon logout"><i class="fa fa-power-off"></i></div>
+        </div>
+      </div>
+    </header>
+    <div class="l-sidebar">
+      <div class="logo">
+        <div class="logo__txt">(◔‿◔)</div>
+      </div>
+      <div class="l-sidebar__content">
+        <nav class="c-menu js-menu">
+          <ul class="u-list">
+            <li class="c-menu__item is-active" data-toggle="tooltip" title="Experiments">
+              <div class="c-menu__item__inner"><i class="fa fa-flask"></i>
+                <div class="c-menu-item__title"><span>Experiments</span></div>
+              </div>
+            </li>
+            <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Metric">
+              <div class="c-menu__item__inner"><i class="fa fa-area-chart"></i>
+                <div class="c-menu-item__title"><span>Metric</span></div>
+              </div>
+            </li>
+            <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Parameter">
+              <div class="c-menu__item__inner"><i class="fa fa-info"></i>
+                <div class="c-menu-item__title"><span>Parameter</span></div>
+              </div>
+            </li>
+            <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Logs">
+              <div class="c-menu__item__inner"><i class="fa fa-list-alt"></i>
+                <div class="c-menu-item__title"><span>Logs</span></div>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  <main class="l-main">
+    <div class="content-wrapper content-wrapper--with-bg">
+      
+          <div class="list-group">
+          <a href="#" class="list-group-item">
+              <div class="col-md-5">
+                  <h2 class="list-group-item-heading pb-3"> Experiments name </h2>
+              </div>
+              <div class="col-md-3 pull-left">
+                  <div class = "container col-md-12">
+                      <div class = "row">
+                          <div class="col-md-12 pull-left"><i class="fa fa-check-square"></i> Metric</div>
+                      </div>
+                      <div class = "row">
+                          <div class="col-md-12 pull-left"><i class="fa fa-check-square"></i> Param</div>
+                      </div>
+                      <div class = "row">
+                          <div class="col-md-12 pull-left"><i class="fa fa-check-square"></i> Logs</div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                <h3>Up Time: 12:22:22</h3>
+              </div>
+          </a>
+      </div>
+      
+    </div>
+  </main>
+</div>
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+<script src='https://use.fontawesome.com/2188c74ac9.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
+
 <script type="text/javascript">
 
-    $(document).ready(function(){
-    $('.login-info-box').fadeOut();
+var Dashboard = function () {
+	var global = {
+		tooltipOptions: {
+			placement: "right"
+		},
+		menuClass: ".c-menu"
+	};
+
+	var menuChangeActive = function menuChangeActive(el) {
+		var hasSubmenu = $(el).hasClass("has-submenu");
+		$(global.menuClass + " .is-active").removeClass("is-active");
+		$(el).addClass("is-active");
+
+		// if (hasSubmenu) {
+		// 	$(el).find("ul").slideDown();
+		// }
+	};
+
+	var sidebarChangeWidth = function sidebarChangeWidth() {
+		var $menuItemsTitle = $("li .menu-item__title");
+
+		$("body").toggleClass("sidebar-is-reduced sidebar-is-expanded");
+		$(".hamburger-toggle").toggleClass("is-opened");
+
+		if ($("body").hasClass("sidebar-is-expanded")) {
+			$('[data-toggle="tooltip"]').tooltip("destroy");
+		} else {
+			$('[data-toggle="tooltip"]').tooltip(global.tooltipOptions);
+		}
+	};
+
+	return {
+		init: function init() {
+			$(".js-hamburger").on("click", sidebarChangeWidth);
+
+			$(".js-menu li").on("click", function (e) {
+				menuChangeActive(e.currentTarget);
+			});
+
+			$('[data-toggle="tooltip"]').tooltip(global.tooltipOptions);
+
+      $(".js-hamburger").click()
+		}
+	};
+}();
+
+
+$(document).ready(function(){
+
+    $('#login-bt').on('click', function(){
+      $('.login-reg-panel').css('display', 'none');
+      $('.dashboard').css('display', 'unset');
+
+      setTimeout(Dashboard.init, 200);
+    });
+
+    $('.white-panel').removeClass('right-log');
     $('.login-show').addClass('show-log-panel');
-});
 
-
-$('.login-reg-panel input[type="radio"]').on('change', function() {
-    if($('#log-login-show').is(':checked')) {
-        $('.register-info-box').fadeOut(); 
-        $('.login-info-box').fadeIn();
-        
-        $('.white-panel').addClass('right-log');
-        $('.register-show').addClass('show-log-panel');
-        $('.login-show').removeClass('show-log-panel');
-        
-    }
-    else if($('#log-reg-show').is(':checked')) {
-        $('.register-info-box').fadeIn();
-        $('.login-info-box').fadeOut();
-        
-        $('.white-panel').removeClass('right-log');
-        
-        $('.login-show').addClass('show-log-panel');
-        $('.register-show').removeClass('show-log-panel');
-    }
 });
-  
 
 </script>
 </body>
