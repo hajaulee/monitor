@@ -340,7 +340,6 @@ function create_chart(data){
 
 function update_metric(data){
     if (config.data.datasets.length > 0) {
-        config.data.labels.push(config.data.labels.length);
 
         config.data.datasets.forEach(function(dataset) {
             if (dataset.label == data.key){
@@ -351,6 +350,14 @@ function update_metric(data){
             }
         });
 
+        label_length = 0
+        for(let i = 0; i < config.data.datasets.length; i++){
+            console.log(label_length)
+            if (label_length < config.data.datasets[i].data.length){
+                label_length = config.data.datasets[i].data.length
+            }
+        }
+        config.data.labels = [...Array(label_length).keys()]
         window.LineChart.update();
     }
 }
