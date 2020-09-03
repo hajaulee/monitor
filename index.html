@@ -194,6 +194,7 @@ var metricRef;
 var paramRef;
 var logRef;
 var commandRef;
+var resultRef;
 
 function convertMS( milliseconds ) {
     var day, hour, minute, seconds;
@@ -212,22 +213,22 @@ function convertMS( milliseconds ) {
 }
 
 function hash(s) {
-    var hash = 0, i, chr;
+    var _hash = BigInt(0), i, chr;
+    var five = BigInt(5);
     for (i = 0; i < s.length; i++) {
         chr   = s.charCodeAt(i);
-        hash  = ((hash << 5) - hash) + chr;
-        hash |= 0; 
+        _hash  = ((_hash << BigInt(5)) - _hash) + BigInt(chr);
     }
-    return hash.toString();
+    return _hash.toString();
 }
 
-function create_api(s){
-    let api = hash(s);
-    while (api.length < 32){
+function create_apikey(s){
+    let api_key = hash(s);
+    while (api_key.length < 32){
         s = s.slice(1, -1)
-        api += hash(s)
+        api_key += hash(s)
     }
-    return api.slice(0, 32)
+    return api_key.slice(0, 32)
 }
 
 
@@ -271,6 +272,14 @@ var Dashboard = function () {
 			});
 
 			$('[data-toggle="tooltip"]').tooltip(global.tooltipOptions);
+
+            $('#input-command').keypress(function(event){
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if(keycode == '13'){
+                    commandRef.push($('#input-command').val())
+                    $('#input-command').val('')
+                }
+            });
 		},
         open: function(){
             if (!$("body").hasClass("sidebar-is-expanded")){
@@ -289,6 +298,12 @@ var LoginForm = function(){
     return {
         init: function(){
             this.open()
+            $('.login-show input').keypress(function(event){
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if(keycode == '13'){
+                    $('#login-bt').click()
+                }
+            });
         },
         open: function open(){
             $('.white-panel').removeClass('right-log');
@@ -310,6 +325,11 @@ function update_log(data){
     $(".logs-panel pre").scrollTop($(".logs-panel pre")[0].scrollHeight);
 }
 
+function update_result(data){
+    $('.command-panel pre').append(data.val() + '\n')
+    $(".command-panel pre").scrollTop($(".command-panel pre")[0].scrollHeight);
+}
+
 function create_chart(data){
     var colorNames = Object.keys(window.chartColors);
     var colorName = colorNames[config.data.datasets.length % colorNames.length];
@@ -329,7 +349,6 @@ function create_chart(data){
 
     label_length = 0
     for(let i = 0; i < config.data.datasets.length; i++){
-        console.log(label_length)
         if (label_length < config.data.datasets[i].data.length){
             label_length = config.data.datasets[i].data.length
         }
@@ -352,7 +371,6 @@ function update_metric(data){
 
         label_length = 0
         for(let i = 0; i < config.data.datasets.length; i++){
-            console.log(label_length)
             if (label_length < config.data.datasets[i].data.length){
                 label_length = config.data.datasets[i].data.length
             }
@@ -372,7 +390,7 @@ function login_init(){
 
     expRef = firebase.database().ref(`experiments/${api_key}/`)
     expRef.on('child_added', function(data){
-        // console.log(data)
+        
         let info = data.val()
         let exp_item = exp_template.replace("{exp_name}", data.key)
         exp_item = exp_item.replace("{metric}", "metric" in info?"-check":"")
@@ -387,9 +405,10 @@ function login_init(){
             $('.on-exp').slideDown()
             $('.c-menu .u-list li:eq(1)').click()
 
-            try{metricRef.off();paramRef.off();logRef.off();commandRef.off()}catch(err){}
+            try{metricRef.off();paramRef.off();logRef.off();commandRef.off();resultRef.off()}catch(err){}
             $('.table-content').html('')
             $('.logs-panel pre').html('')
+            $('.command-panel pre').html('')
             config.data.datasets = [];
             config.data.labels = [];
             window.LineChart.update();
@@ -398,13 +417,13 @@ function login_init(){
             paramRef    = firebase.database().ref(`experiments/${api_key}/${data.key}/param`)
             logRef      = firebase.database().ref(`experiments/${api_key}/${data.key}/logs`)
             commandRef  = firebase.database().ref(`experiments/${api_key}/${data.key}/command`)
+            resultRef   = firebase.database().ref(`experiments/${api_key}/${data.key}/results`)
 
             paramRef.on('child_added', update_param)
             logRef.on('child_added', update_log)
             metricRef.on('child_added', create_chart)
             metricRef.on('child_changed', update_metric)
-
-
+            resultRef.on('child_added', update_result)
         })
         $('.list-group').append(exp_item)
     })
@@ -414,7 +433,7 @@ function read_login_form(){
     username = $("#username").val()
     if (username){
         let password = $("#password").val()
-        api_key = create_api(username + '$$$' + password)
+        api_key = create_apikey(username + '$$$' + password)
 
         localStorage.username = username
         localStorage.api_key = api_key
@@ -431,10 +450,10 @@ function login_click(){
 function onlogout(){
 
     
-    $("#username").val(username)
     username = '';
     api_key = '';
     $('logo__txt').html(username)
+    $("#password").val('')
     localStorage.username = username
     localStorage.api_key = api_key
 
@@ -463,7 +482,7 @@ $(document).ready(function(){
     $('.c-header-icon.logout').on('click', onlogout)
 
     let menu_items = $('.c-menu .u-list li')
-    // console.log(menu_items.length)
+    
     for (let i = 0; i < menu_items.length; i++){
         $(menu_items[i]).on('click', function(){
             $('.l-main > div').addClass('hidden');
@@ -473,7 +492,6 @@ $(document).ready(function(){
 
     var ctx = $('#canvas')[0].getContext('2d');
     window.LineChart = new Chart(ctx, config);
-    
 });
 
 
@@ -515,9 +533,6 @@ var config = {
 				}
 			}
 		};
-
-        
-
 </script>
 </body>
 </html>
