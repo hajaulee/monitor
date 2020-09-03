@@ -9,11 +9,19 @@
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'>
     <style class="cp-pen-styles">@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700&subset=latin-ext");
-</style></head>
+    </style>
+    <style>
+        canvas{
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+    </style>
+</head>
 
 <body class="sidebar-is-reduced">
 
-  <div class="login-reg-panel">
+  <div class="login-reg-panel" style="display: none;">
                 
       <div class="register-info-box">
           <h2>Homepage</h2>
@@ -37,6 +45,9 @@
         <div class="c-header-icon js-hamburger">
           <div class="hamburger-toggle"><span class="bar-top"></span><span class="bar-mid"></span><span class="bar-bot"></span></div>
         </div>
+        <div class="title">
+            <h2>Experiment name</h2>
+        </div>
         <div class="header-icons-group">
           <div class="c-header-icon logout"><i class="fa fa-power-off"></i></div>
         </div>
@@ -49,57 +60,69 @@
       <div class="l-sidebar__content">
         <nav class="c-menu js-menu">
           <ul class="u-list">
-            <li class="c-menu__item is-active" data-toggle="tooltip" title="Experiments">
+            <li class="c-menu__item is-active has-submenu" data-toggle="tooltip" title="Experiments">
               <div class="c-menu__item__inner"><i class="fa fa-flask"></i>
                 <div class="c-menu-item__title"><span>Experiments</span></div>
               </div>
             </li>
-            <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Metric">
-              <div class="c-menu__item__inner"><i class="fa fa-area-chart"></i>
-                <div class="c-menu-item__title"><span>Metric</span></div>
-              </div>
-            </li>
-            <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Parameter">
-              <div class="c-menu__item__inner"><i class="fa fa-info"></i>
-                <div class="c-menu-item__title"><span>Parameter</span></div>
-              </div>
-            </li>
-            <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Logs">
-              <div class="c-menu__item__inner"><i class="fa fa-list-alt"></i>
-                <div class="c-menu-item__title"><span>Logs</span></div>
-              </div>
-            </li>
+            <div class="on-exp" style="display: none;">
+                <li class="c-menu__item" data-toggle="tooltip" title="Metric">
+                <div class="c-menu__item__inner"><i class="fa fa-area-chart"></i>
+                    <div class="c-menu-item__title"><span>Metric</span></div>
+                </div>
+                </li>
+                <li class="c-menu__item" data-toggle="tooltip" title="Parameter">
+                <div class="c-menu__item__inner"><i class="fa fa-info"></i>
+                    <div class="c-menu-item__title"><span>Parameter</span></div>
+                </div>
+                </li>
+                <li class="c-menu__item" data-toggle="tooltip" title="Logs">
+                <div class="c-menu__item__inner"><i class="fa fa-list-alt"></i>
+                    <div class="c-menu-item__title"><span>Logs</span></div>
+                </div>
+                </li>
+                <li class="c-menu__item" data-toggle="tooltip" title="Command">
+                    <div class="c-menu__item__inner"><i class="fa fa-terminal"></i>
+                    <div class="c-menu-item__title"><span>Command</span></div>
+                    </div>
+                </li>
+            </div>
           </ul>
         </nav>
       </div>
     </div>
   <main class="l-main">
-    <div class="content-wrapper content-wrapper--with-bg">
-      
-          <div class="list-group">
-          <a href="#" class="list-group-item">
-              <div class="col-md-5">
-                  <h2 class="list-group-item-heading pb-3"> Experiments name </h2>
-              </div>
-              <div class="col-md-3 pull-left">
-                  <div class = "container col-md-12">
-                      <div class = "row">
-                          <div class="col-md-12 pull-left"><i class="fa fa-check-square"></i> Metric</div>
-                      </div>
-                      <div class = "row">
-                          <div class="col-md-12 pull-left"><i class="fa fa-check-square"></i> Param</div>
-                      </div>
-                      <div class = "row">
-                          <div class="col-md-12 pull-left"><i class="fa fa-check-square"></i> Logs</div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-4">
-                <h3>Up Time: 12:22:22</h3>
-              </div>
-          </a>
-      </div>
-      
+    <div class="content-wrapper content-wrapper--with-bg exp-panel">
+        <div class="list-group">
+        </div>
+    </div>
+    <div class="content-wrapper content-wrapper--with-bg metric-panel hidden">
+        <h1>Metric</h1>
+        <div style="width:75%;"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+		    <canvas id="canvas" style="display: block; width: 1367px; height: 683px;" width="1367" height="683" class="chartjs-render-monitor"></canvas>
+	    </div>
+    </div>
+    <div class="content-wrapper content-wrapper--with-bg param-panel hidden">
+        <h1>Param</h1>
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Param</th>
+                <th scope="col">Value</th>
+              </tr>
+            </thead>
+            <tbody class="table-content">
+            </tbody>
+          </table>
+    </div>
+    <div class="content-wrapper content-wrapper--with-bg logs-panel hidden">
+        <h1>Logs</h1>
+        <pre></pre>
+    </div>
+    <div class="content-wrapper content-wrapper--with-bg command-panel hidden">
+        <h1>Command</h1>
+        <pre></pre>
+        <input id="input-command" class="form-control" placeholder="$: Some command here">
     </div>
   </main>
 </div>
@@ -109,10 +132,84 @@
 <script src='https://use.fontawesome.com/2188c74ac9.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
 
+<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+
+
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
+<script src="./js/Chart.min.js"></script><style></style>
+<script src="./js/utils.js"></script>
+
+
+
+
 <script type="text/javascript">
+var exp_template = `<a href="#" class="list-group-item" id="exp-{exp_id}">
+              <div class="col-md-5">
+                  <h2 class="list-group-item-heading pb-3">{exp_name}</h2>
+              </div>
+              <div class="col-md-3 pull-left">
+                  <div class = "container col-md-12">
+                      <div class = "row">
+                          <div class="col-md-12 pull-left"><i class="fa fa{metric}-square"></i> Metric</div>
+                      </div>
+                      <div class = "row">
+                          <div class="col-md-12 pull-left"><i class="fa fa{param}-square"></i> Param</div>
+                      </div>
+                      <div class = "row">
+                          <div class="col-md-12 pull-left"><i class="fa fa{logs}-square"></i> Logs</div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                <h3 style="margin-top: 0px">Up Time: {up_time} before</h3>
+                <h3>Latest online: {latest_time} before</h3>
+              </div>
+          </a>`
+
+</script>
+
+<script type="text/javascript">
+
+firebaseConfig = {
+  "apiKey": "AIzaSyBvSo1GFKS_XN6LYKC2QDkfm8o8UK2iJhE",
+  "authDomain": "",
+  "databaseURL": "https://dl-monitor.firebaseio.com/",
+  "storageBucket": ""
+}
+
+firebase.initializeApp(firebaseConfig);
+// Get a reference to the database service
+var database = firebase.database();
+
 
 var username = "";
 var api_key  = "";
+var current_exp = "";
+
+var expRef;
+var metricRef;
+var paramRef;
+var logRef;
+var commandRef;
+
+function convertMS( milliseconds ) {
+    var day, hour, minute, seconds;
+    seconds = Math.floor(milliseconds / 1000);
+    minute = Math.floor(seconds / 60);
+    seconds = seconds % 60;
+    hour = Math.floor(minute / 60);
+    minute = minute % 60;
+    day = Math.floor(hour / 24);
+    hour = hour % 24;
+    str = `${hour}:${minute}:${seconds}`
+    if (day){
+        str = `${day} day(s) ` + str
+    }
+    return str
+}
 
 function hash(s) {
     var hash = 0, i, chr;
@@ -125,7 +222,12 @@ function hash(s) {
 }
 
 function create_api(s){
-    return hash(s) + hash(s.slice(2)) + hash(s.slice(0, -2))
+    let api = hash(s);
+    while (api.length < 32){
+        s = s.slice(1, -1)
+        api += hash(s)
+    }
+    return api.slice(0, 32)
 }
 
 
@@ -199,46 +301,215 @@ var LoginForm = function(){
     }
 }();
 
-$(document).ready(function(){
+function update_param(data){
+    $('.table-content').append($.parseHTML(`<tr><th>${data.key}</th><td>${data.val()}</td></tr>`))
+}
 
-    LoginForm.init();
-    Dashboard.init();
+function update_log(data){
+    $('.logs-panel pre').append(data.val() + '\n')
+    $(".logs-panel pre").scrollTop($(".logs-panel pre")[0].scrollHeight);
+}
 
-    function onlogin(){
+function create_chart(data){
+    var colorNames = Object.keys(window.chartColors);
+    var colorName = colorNames[config.data.datasets.length % colorNames.length];
+    var newColor = window.chartColors[colorName];
+    var newDataset = {
+        label: data.key,
+        backgroundColor: newColor,
+        borderColor: newColor,
+        data: [],
+        fill: false
+    };
 
-        username = $("#username").val()
+    Object.keys(data.val()).forEach(function(key) {
+        newDataset.data.push(data.val()[key]);
+    });
+    config.data.datasets.push(newDataset);
+
+    label_length = 0
+    for(let i = 0; i < config.data.datasets.length; i++){
+        console.log(label_length)
+        if (label_length < config.data.datasets[i].data.length){
+            label_length = config.data.datasets[i].data.length
+        }
+    }
+    config.data.labels = [...Array(label_length).keys()]
+    window.LineChart.update();
+}
+
+function update_metric(data){
+    if (config.data.datasets.length > 0) {
+        config.data.labels.push(config.data.labels.length);
+
+        config.data.datasets.forEach(function(dataset) {
+            if (dataset.label == data.key){
+                dataset.data = []
+                Object.keys(data.val()).forEach(function(key) {
+                    dataset.data.push(data.val()[key]);
+                });
+            }
+        });
+
+        window.LineChart.update();
+    }
+}
+
+function login_init(){
+    $('.logo__txt').html(username)
+    $('.login-reg-panel').css('display', 'none');
+    $('.dashboard').css('display', 'unset');
+    
+    setTimeout(Dashboard.open, 200);
+    LoginForm.close();
+
+    expRef = firebase.database().ref(`experiments/${api_key}/`)
+    expRef.on('child_added', function(data){
+        // console.log(data)
+        let info = data.val()
+        let exp_item = exp_template.replace("{exp_name}", data.key)
+        exp_item = exp_item.replace("{metric}", "metric" in info?"-check":"")
+        exp_item = exp_item.replace("{param}", "param" in info?"-check":"")
+        exp_item = exp_item.replace("{logs}", "logs" in info?"-check":"")
+        exp_item = exp_item.replace("{up_time}", convertMS(Date.now() - Date.parse(info.start_time)))
+        exp_item = exp_item.replace("{latest_time}", convertMS(Date.now() - Date.parse(info.latest_time)))
+        exp_item = $.parseHTML(exp_item)
+        $(exp_item).on('click', function(){
+            current_exp = data.key
+            $('.title h2').html(current_exp)
+            $('.on-exp').slideDown()
+            $('.c-menu .u-list li:eq(1)').click()
+
+            try{metricRef.off();paramRef.off();logRef.off();commandRef.off()}catch(err){}
+            $('.table-content').html('')
+            $('.logs-panel pre').html('')
+            config.data.datasets = [];
+            config.data.labels = [];
+            window.LineChart.update();
+
+            metricRef   = firebase.database().ref(`experiments/${api_key}/${data.key}/metric`)
+            paramRef    = firebase.database().ref(`experiments/${api_key}/${data.key}/param`)
+            logRef      = firebase.database().ref(`experiments/${api_key}/${data.key}/logs`)
+            commandRef  = firebase.database().ref(`experiments/${api_key}/${data.key}/command`)
+
+            paramRef.on('child_added', update_param)
+            logRef.on('child_added', update_log)
+            metricRef.on('child_added', create_chart)
+            metricRef.on('child_changed', update_metric)
+
+
+        })
+        $('.list-group').append(exp_item)
+    })
+}
+
+function read_login_form(){
+    username = $("#username").val()
+    if (username){
         let password = $("#password").val()
         api_key = create_api(username + '$$$' + password)
-        $('.logo__txt').html(username)
 
-
-        $('.login-reg-panel').css('display', 'none');
-        $('.dashboard').css('display', 'unset');
-        
-        setTimeout(Dashboard.open, 200);
-        LoginForm.close();
+        localStorage.username = username
+        localStorage.api_key = api_key
     }
+    return username
+}
 
-    function onlogout(){
+function login_click(){
+    if (read_login_form()){
+        login_init()
+    }
+}
 
-        
-        $("#username").val(username)
-        username = '';
-        api_key = '';
-        $('logo__txt').html(username)
+function onlogout(){
 
+    
+    $("#username").val(username)
+    username = '';
+    api_key = '';
+    $('logo__txt').html(username)
+    localStorage.username = username
+    localStorage.api_key = api_key
 
+    $('.login-reg-panel').css('display', 'block');
+    $('.dashboard').css('display', 'none');
+
+    setTimeout(LoginForm.open, 200);
+    Dashboard.close();
+}
+
+function onreturn(){
+    if (localStorage.api_key){
+        username = localStorage.username
+        api_key = localStorage.api_key
+        login_init()
+    }else{
         $('.login-reg-panel').css('display', 'block');
-        $('.dashboard').css('display', 'none');
-
-        setTimeout(LoginForm.open, 200);
-        Dashboard.close();
     }
+}
+onreturn();
 
-    $('#login-bt').on('click', onlogin);
+$(document).ready(function(){
+    LoginForm.init();
+    Dashboard.init();
+    $('#login-bt').on('click', login_click);
     $('.c-header-icon.logout').on('click', onlogout)
 
+    let menu_items = $('.c-menu .u-list li')
+    // console.log(menu_items.length)
+    for (let i = 0; i < menu_items.length; i++){
+        $(menu_items[i]).on('click', function(){
+            $('.l-main > div').addClass('hidden');
+            $(`.l-main > div:eq(${i})`).removeClass('hidden');
+        })
+    }
+
+    var ctx = $('#canvas')[0].getContext('2d');
+    window.LineChart = new Chart(ctx, config);
+    
 });
+
+
+var config = {
+			type: 'line',
+			data: {
+				labels: [69],
+				datasets: []
+			},
+			options: {
+				responsive: true,
+				title: {
+					display: true,
+					text: 'Metrics'
+				},
+				tooltips: {
+					mode: 'index',
+					intersect: false,
+				},
+				hover: {
+					mode: 'nearest',
+					intersect: true
+				},
+				scales: {
+					xAxes: [{
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'Something'
+						}
+					}],
+					yAxes: [{
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'Value'
+						}
+					}]
+				}
+			}
+		};
+
+        
 
 </script>
 </body>

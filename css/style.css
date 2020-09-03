@@ -711,3 +711,35 @@ a.list-group-item {
 a.list-group-item.active small {
     color:#fff;
 }
+
+.on-exp li{
+  padding-left: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.title h2{
+  margin-left: 20px;
+}
+
+.table{
+  width: fit-content;
+}
+
+.logs-panel{
+  padding-bottom: 100px!important;
+}
+
+.logs-panel pre{
+  overflow-y: scroll;
+  height: inherit;
+}
+
+
+.command-panel pre{
+  max-height: 80%;
+  overflow-y: scroll;
+  height: inherit;
+}
