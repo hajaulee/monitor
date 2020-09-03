@@ -43,15 +43,12 @@ class Experiment(object):
 			self.user_api = file.read().strip()
 
 		self.name = name
+		self.running = True
 		self.exp_path = "experiments/{}/{}".format(self.user_api, self.name)
 		self.clear(clear_old)
 		self.checkin()
 		self.ping()
 		self.listen()
-
-	@async_task
-	def checkin(self):
-		db.child(self.exp_path).child('start_time').set(datetime.datetime.now().isoformat())
 
 
 	def clear(self, clear_old):
@@ -59,37 +56,43 @@ class Experiment(object):
 			db.child(self.exp_path).remove()
 
 
+	@async_task
+	def checkin(self):
+		db.child(self.exp_path).child('start_time').set(datetime.datetime.now().isoformat())
+
+
+	@async_task
 	def ping(self):
-		def set_latest_time():
-			t = threading.currentThread()
-			while getattr(t, "do_run", True):
-				db.child(self.exp_path).child('latest_time').set(datetime.datetime.now().isoformat())
-				time.sleep(10)
-		self.th = threading.Thread(target=set_latest_time)
-		self.th.start()
+		while self.running:
+			db.child(self.exp_path).child('latest_time').set(datetime.datetime.now().isoformat())
+			time.sleep(10)
+
 
 	@async_task
 	def metric(self, met, mss):
 		db.child(self.exp_path).child('metric').child(met).push(float(mss))
 
+
 	@async_task
 	def param(self, par, mss):
 		db.child(self.exp_path).child('param').child(par).set(json.dumps(mss))
+
 
 	@async_task
 	def log(self, mss):
 		log_time = datetime.datetime.now().isoformat().split('.')[0]
 		db.child(self.exp_path).child('logs').push(log_time + ': ' + mss)
 
+
 	@async_task
 	def listen(self):
 		db.child(self.exp_path).child('command').stream(self.command)
+
 
 	@async_task
 	def command(self, message):
 		mss = message['data']
 		path = message['path']
-		print(message['event'], mss, path)
 		
 		if mss is not None:
 			db.child(self.exp_path).child('command' + path).remove()
@@ -97,7 +100,7 @@ class Experiment(object):
 				if mss[0] != '!':
 					db.child(self.exp_path).child('results').push('>>> ' + mss + '\n' + str(eval(mss)))
 				else:
-					cml = '\n$:{}\n'.format(mss)
+					cml = '\n$:{}\n'.format(mss[1:])
 					stdout = os.popen(mss[1:]).read()
 					db.child(self.exp_path).child('results').push(cml + stdout)
 			except Exception:
@@ -108,5 +111,6 @@ class Experiment(object):
 		# TODO
 		pass
 
+
 	def closs(self):
-		self.th.do_run = False
+		self.running = False
