@@ -1,6 +1,6 @@
 # Monitor
 
-Homepage: [https://hajaulee.github.io/dl/](https://hajaulee.github.io/monitor/)
+Homepage: [https://hajaulee.github.io/monitor/](https://hajaulee.github.io/monitor/)
 
 The simple monitor using Google Firebase to monitor and control deep learning model training progress or something else,
 This is cloud-based monitor, use can access me from everywhere (has internet connection).
