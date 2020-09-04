@@ -121,6 +121,11 @@
     </div>
     <div class="content-wrapper content-wrapper--with-bg command-panel hidden">
         <h1>Command</h1>
+        <textarea class="form-control" readonly>
+            !command -> Run a linux command line
+            >command  -> Show value of passed variable
+            command -> Execute a python script (Eg save model or run something,...)
+        </textarea>
         <pre></pre>
         <input id="input-command" class="form-control" placeholder="$: Some command here">
     </div>
@@ -195,6 +200,8 @@ var paramRef;
 var logRef;
 var commandRef;
 var resultRef;
+
+var LIMIT = 1000;
 
 function convertMS( milliseconds ) {
     var day, hour, minute, seconds;
@@ -342,7 +349,7 @@ function create_chart(data){
         fill: false
     };
 
-    Object.keys(data.val()).forEach(function(key) {
+    Object.keys(data.val()).slice(-LIMIT).forEach(function(key) {
         newDataset.data.push(data.val()[key]);
     });
     config.data.datasets.push(newDataset);
@@ -363,7 +370,7 @@ function update_metric(data){
         config.data.datasets.forEach(function(dataset) {
             if (dataset.label == data.key){
                 dataset.data = []
-                Object.keys(data.val()).forEach(function(key) {
+                Object.keys(data.val()).slice(-LIMIT).forEach(function(key) {
                     dataset.data.push(data.val()[key]);
                 });
             }
@@ -393,6 +400,7 @@ function login_init(){
         
         let info = data.val()
         let exp_item = exp_template.replace("{exp_name}", data.key)
+        exp_item = exp_item.replace("{exp_id}", data.key.replace(/ /g, '_'))
         exp_item = exp_item.replace("{metric}", "metric" in info?"-check":"")
         exp_item = exp_item.replace("{param}", "param" in info?"-check":"")
         exp_item = exp_item.replace("{logs}", "logs" in info?"-check":"")
@@ -413,11 +421,11 @@ function login_init(){
             config.data.labels = [];
             window.LineChart.update();
 
-            metricRef   = firebase.database().ref(`experiments/${api_key}/${data.key}/metric`)
-            paramRef    = firebase.database().ref(`experiments/${api_key}/${data.key}/param`)
-            logRef      = firebase.database().ref(`experiments/${api_key}/${data.key}/logs`)
+            metricRef   = firebase.database().ref(`experiments/${api_key}/${data.key}/metric`).limitToLast(LIMIT)
+            paramRef    = firebase.database().ref(`experiments/${api_key}/${data.key}/param`).limitToLast(LIMIT)
+            logRef      = firebase.database().ref(`experiments/${api_key}/${data.key}/logs`).limitToLast(LIMIT)
             commandRef  = firebase.database().ref(`experiments/${api_key}/${data.key}/command`)
-            resultRef   = firebase.database().ref(`experiments/${api_key}/${data.key}/results`)
+            resultRef   = firebase.database().ref(`experiments/${api_key}/${data.key}/results`).limitToLast(LIMIT)
 
             paramRef.on('child_added', update_param)
             logRef.on('child_added', update_log)
@@ -426,7 +434,12 @@ function login_init(){
             resultRef.on('child_added', update_result)
         })
         $('.list-group').append(exp_item)
-    })
+    });
+
+    expRef.on('child_removed', function(data){
+        id = "exp-" + data.key.replace(/ /g, '_')
+        $('.list-group').children(`#${id}`).remove();
+    });
 }
 
 function read_login_form(){

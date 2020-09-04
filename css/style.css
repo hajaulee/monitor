@@ -739,7 +739,12 @@ a.list-group-item.active small {
 
 
 .command-panel pre{
-  max-height: 80%;
+  max-height: 70%;
   overflow-y: scroll;
   height: inherit;
+}
+
+.command-panel textarea{
+  height: 69px!important;
+  margin-bottom: 20px;
 }
