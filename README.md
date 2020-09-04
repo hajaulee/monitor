@@ -34,13 +34,15 @@ pip install git+https://github.com/hajaulee/dl
 
 # Using
 
-## Login
+### Login
 
 Login with any username and password
 
-``` dlm <username> <password> ```
+```
+dlm <username> <password>
+```
 
-## Using in your project
+### Using in your project
 
 1. Import
 
