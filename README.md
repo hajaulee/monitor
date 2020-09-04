@@ -1,6 +1,6 @@
 # Monitor
 
-Homepage: [https://hajaulee.github.io/dl/](https://hajaulee.github.io/dl/)
+Homepage: [https://hajaulee.github.io/dl/](https://hajaulee.github.io/monitor/)
 
 The simple monitor using Google Firebase to monitor and control deep learning model training progress or something else,
 This is cloud-based monitor, use can access me from everywhere (has internet connection).
@@ -13,7 +13,7 @@ Use this monitor, you can:
 * Track real-time log during training progress
 * Control and interact to experiment even though it is running
 
-Accese [homepage](https://hajaulee.github.io/dl/) to monitor
+Accese [homepage](https://hajaulee.github.io/monitor/) to monitor
 
 ![Preview command tab](./images/command.png)
 
@@ -22,13 +22,13 @@ Accese [homepage](https://hajaulee.github.io/dl/) to monitor
 install via `pip`
 
 ```
-$ pip install git+https://github.com/hajaulee/dl
+$ pip install git+https://github.com/hajaulee/monitor
 ```
 
 or clone this repository
 
 ```
-$ git clone https://github.com/hajaulee/dl
+$ git clone https://github.com/hajaulee/monitor
 $ cd dl
 $ python setup.py install
 ```
