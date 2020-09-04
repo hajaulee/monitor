@@ -13,6 +13,8 @@ Use this monitor, you can:
 * Track real-time log during training progress
 * Control and interact to experiment even though it is running
 
+![Preview command tab](./images/command.png)
+
 # Installation
 
 Clone this repository
@@ -36,32 +38,37 @@ pip install git+https://github.com/hajaulee/dl
 
 Login with any username and password
 
-> dlm <username> <password>
+> ``` dlm {username} {password}
 
 ## Using in your project
 
 1. Import
 
-> from hajau import Experiment
+> ```python from hajau import Experiment```
 
 2. Init
+
 _Initialize experiment with name_
-> exp = Experment(name='GAN Training')
+> ```python exp = Experment(name='GAN Training')```
 
 3. Log some parameters
+
 _Add model meta parameters or traing config etc_
-> exp.param('batch_size', 32)
+> ```python exp.param('batch_size', 32)```
 
 4. Log some metrics
+
 _Add and update some metric during training progress_
-> exp.metric('loss', 0.2)
+> ```python exp.metric('loss', 0.2)```
 
 5. Log somethings
+
 _Log something such as training status during training progress_
-> exp.log('Hello world')
+> ```python exp.log('Hello world')```
 
 6. Debug
+
 _Add a object to `exp.debug_list`, for you can control it via monitor page_
-> exp.debug(model=GAN_model)
+> ```python exp.debug(model=GAN_model)```
 
 
