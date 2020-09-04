@@ -19,7 +19,13 @@ Accese [homepage](https://hajaulee.github.io/dl/) to monitor
 
 # Installation
 
-Clone this repository
+install via `pip`
+
+```
+$ pip install git+https://github.com/hajaulee/dl
+```
+
+or clone this repository
 
 ```
 $ git clone https://github.com/hajaulee/dl
@@ -27,14 +33,7 @@ $ cd dl
 $ python setup.py install
 ```
 
-Or install via `pip`
-
-```
-$ pip install git+https://github.com/hajaulee/dl
-```
-
-
-# Using
+# Usage
 
 ### Login
 
