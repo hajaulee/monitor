@@ -487,6 +487,19 @@ function onreturn(){
         $('.login-reg-panel').css('display', 'block');
     }
 }
+
+function on_item_click_i(i){
+    function on_item_click(){
+        $('.l-main > div').addClass('hidden');
+        $(`.l-main > div:eq(${i})`).removeClass('hidden');
+        let pre_tab = $('pre')
+        for (let j = 0; j < pre_tab.length; j++){
+            $(pre_tab[j]).scrollTop(pre_tab[j].scrollHeight);
+        }
+    }
+    return on_item_click
+}
+
 onreturn();
 
 $(document).ready(function(){
@@ -497,11 +510,9 @@ $(document).ready(function(){
 
     let menu_items = $('.c-menu .u-list li')
     
+    
     for (let i = 0; i < menu_items.length; i++){
-        $(menu_items[i]).on('click', function(){
-            $('.l-main > div').addClass('hidden');
-            $(`.l-main > div:eq(${i})`).removeClass('hidden');
-        })
+        $(menu_items[i]).on('click', on_item_click_i(i))
     }
 
     var ctx = $('#canvas')[0].getContext('2d');

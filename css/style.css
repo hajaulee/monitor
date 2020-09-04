@@ -747,4 +747,5 @@ a.list-group-item.active small {
 .command-panel textarea{
   height: 69px!important;
   margin-bottom: 20px;
+  overflow-y: hidden;
 }
