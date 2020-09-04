@@ -55,8 +55,13 @@ class Experiment(object):
 		super(Experiment, self).__init__()
 
 		api_path = os.path.expanduser('~/.remote_log.api')
-		with open(api_path) as file:
-			self.user_api = file.read().strip()
+
+		try:
+			with open(api_path) as file:
+				self.user_api = file.read().strip()
+		except Exception as e:
+			print('Please login before using hajau monitor')
+			raise e
 
 		self.debug_list = {}
 		self.name = name
