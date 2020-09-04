@@ -732,6 +732,10 @@ a.list-group-item.active small {
   padding-bottom: 100px!important;
 }
 
+pre{
+  white-space: pre-wrap;
+}
+
 .logs-panel pre{
   overflow-y: scroll;
   height: inherit;
