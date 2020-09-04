@@ -123,7 +123,7 @@
         <h1>Command</h1>
         <textarea class="form-control" readonly>
             !command -> Run a linux command line
-            >command  -> Show value of passed variable
+            >command -> Show value of passed variable
             command -> Execute a python script (Eg save model or run something,...)
         </textarea>
         <pre></pre>
@@ -471,6 +471,7 @@ function onlogout(){
     localStorage.api_key = api_key
 
     $('.login-reg-panel').css('display', 'block');
+    $('.list-group').html('');
     $('.dashboard').css('display', 'none');
 
     setTimeout(LoginForm.open, 200);
