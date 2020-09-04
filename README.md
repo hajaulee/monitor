@@ -13,6 +13,8 @@ Use this monitor, you can:
 * Track real-time log during training progress
 * Control and interact to experiment even though it is running
 
+Accese [homepage](https://hajaulee.github.io/dl/) to monitor
+
 ![Preview command tab](./images/command.png)
 
 # Installation
@@ -20,15 +22,15 @@ Use this monitor, you can:
 Clone this repository
 
 ```
-git clone https://github.com/hajaulee/dl
-cd dl
-python setup.py install
+$ git clone https://github.com/hajaulee/dl
+$ cd dl
+$ python setup.py install
 ```
 
 Or install via `pip`
 
 ```
-pip install git+https://github.com/hajaulee/dl
+$ pip install git+https://github.com/hajaulee/dl
 ```
 
 
@@ -39,7 +41,7 @@ pip install git+https://github.com/hajaulee/dl
 Login with any username and password
 
 ```
-dlm <username> <password>
+$ dlm <username> <password>
 ```
 
 ### Using in your project
