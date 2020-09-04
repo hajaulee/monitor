@@ -11,6 +11,7 @@ setup(
     name=MONITOR_PACKAGE,
     packages=[MONITOR_PACKAGE, CLI_PACKAGE],
     install_requires=[
+        'httplib2',
         'pyrebase'
     ],
     entry_points={
