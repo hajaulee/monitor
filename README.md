@@ -149,6 +149,12 @@ Login with username and password you created via cli
 Graph of metrics log
 ![Graph of metrics log](./images/metric.png)
 
+### Parameters
+
+Table of parameters
+
+![Table of parameters](./images/param.png)
+
 ### Logs
 
 ![Logs](./images/log.png)
