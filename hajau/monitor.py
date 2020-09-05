@@ -116,6 +116,11 @@ class Experiment(object):
 
 	@async_task
 	def command(self, message):
+		debug_list = []
+		for ob in self.debug_list:
+			debug_list.append(ob)
+			locals()[ob] = self.debug_list[ob]
+			
 		mss = message['data']
 		path = message['path']
 		
