@@ -157,3 +157,7 @@ Graph of metrics log
 
 You can check, or execute method of objects passed to `exp.debug`, and run linux command
 ![Command](./images/command.png)
+
+Experiment can listen the change in real-time
+
+![Effect](./images/effect.png)
