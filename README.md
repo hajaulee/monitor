@@ -3,7 +3,7 @@
 Homepage: [https://hajaulee.github.io/monitor/](https://hajaulee.github.io/monitor/)
 
 The simple monitor using Google Firebase to monitor and control deep learning model training progress or something else,
-This is cloud-based monitor, use can access me from everywhere (has internet connection).
+This is cloud-based monitor, so use can access me from everywhere (has internet connection).
 
 Use this monitor, you can:
 
@@ -15,7 +15,7 @@ Use this monitor, you can:
 
 Accese [homepage](https://hajaulee.github.io/monitor/) to monitor
 
-![Preview command tab](./images/command.png)
+![Experiments list](./images/exp.png)
 
 # Installation
 
@@ -35,9 +35,9 @@ $ python setup.py install
 
 # Usage
 
-### Login
+### Signup
 
-Login with any username and password
+Signup with any username and password
 
 ```
 $ dlm <username> <password>
@@ -85,10 +85,75 @@ exp.log('Hello world')
 
 6. Debug
 
-_Add a object to `exp.debug_list`, for you can control it via monitor page_
+_Add a object to `debug_list`, for you can control it via monitor page, you can view example and snapshot to detail_
 
 ```python 
 exp.debug(model=GAN_model)
 ```
 
+# Example
 
+```python
+
+from hajau import Experiment
+
+
+class Model(object):
+
+	def __init__(self):
+		self.lr = 0
+
+	def show(self, c): # Can be called from monitor if you want
+		print('Model said:', c)
+
+
+
+test = Experiment('Exp_name_3')
+test.param('newa', dict({'c': 1, 'd': 6}))
+test.param('newb', dict({'c': 1, 'd': 6}))
+test.param('newc', dict({'c': 1, 'd': 6}))
+
+
+model = Model()
+
+test.debug(model=model)
+
+import time
+import random
+i = 0
+while True:
+	test.log('Now is: ' + str(time.time()))
+	test.metric('acc', min(i, 90) + random.randint(0, 10))
+	test.metric('loss', max(0, 1 - 0.01 * i) + random.random())
+	time.sleep(3)
+	print('Epoch {}, lr: {}'.format(i, model.lr))
+	i+=1
+print("Exit loop")    
+test.close()
+
+```
+
+# Snapeshot
+
+### Login page
+
+Login with username and password you created via cli
+![Login page](./images/login.png)
+
+### Experiments list
+
+![Experiments list](./images/exp.png)
+
+### Metric
+
+Graph of metrics log
+![Graph of metrics log](./images/metric.png)
+
+### Logs
+
+![Logs](./images/log.png)
+
+### Command
+
+You can check, or execute method of objects passed to `exp.debug`, and run linux command
+![Command](./images/command.png)
