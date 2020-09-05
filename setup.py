@@ -4,7 +4,7 @@ from setuptools import setup
 MONITOR_PACKAGE = 'hajau'
 CLI_PACKAGE = 'cli'
 
-VERSION = '0.0.1'
+VERSION = '0.1.0'
 LONG_DESCRIPTION = 'Simple monitor'
 
 setup(
