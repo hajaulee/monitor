@@ -753,3 +753,8 @@ pre{
   margin-bottom: 20px;
   overflow-y: hidden;
 }
+
+.exp-panel .limit{
+  margin-bottom: 15px;
+  display: flex;
+}

@@ -93,6 +93,12 @@
     </div>
   <main class="l-main">
     <div class="content-wrapper content-wrapper--with-bg exp-panel">
+        <div class="limit">
+            <div class="col-md-9"></div>
+            <div class="col-md-3">
+                Metric, Logs,... Limited count: <input class="form-control" id="limit">
+            </div>
+        </div>
         <div class="list-group">
         </div>
     </div>
@@ -517,6 +523,10 @@ $(document).ready(function(){
 
     var ctx = $('#canvas')[0].getContext('2d');
     window.LineChart = new Chart(ctx, config);
+
+    $('#limit').val(LIMIT).on('change', function(){
+        LIMIT = parseInt($(this).val())
+    })
 });
 
 
