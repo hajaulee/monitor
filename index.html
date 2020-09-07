@@ -209,6 +209,10 @@ var resultRef;
 
 var LIMIT = 100;
 
+var command_list = ['>debug_list'];
+var command_index = 0;
+var current_command = '';
+
 function convertMS( milliseconds ) {
     var day, hour, minute, seconds;
     seconds = Math.floor(milliseconds / 1000);
@@ -289,10 +293,43 @@ var Dashboard = function () {
             $('#input-command').keypress(function(event){
                 var keycode = (event.keyCode ? event.keyCode : event.which);
                 if(keycode == '13'){
-                    commandRef.push($('#input-command').val())
+                    let command = $('#input-command').val()
+                    commandRef.push(command)
+                    command_list.push(command)
                     $('#input-command').val('')
+                    current_command = ''
                 }
             });
+
+            $('#input-command').keydown(function(event){
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == '38'){
+                    // up
+                    command_index = (command_list.length + command_index) % (command_list.length + 1)
+
+                }
+                if (keycode == '40'){
+                    // down
+                    command_index = (command_list.length + command_index + 2) % (command_list.length + 1)
+                    
+                }
+                if (keycode == '38' || keycode == '40'){
+                    
+                    if(!current_command){
+                        current_command = $('#input-command').val()
+                    }
+                    console.log(command_index + ':' + command_list.length)
+                    if (command_index == command_list.length){
+                        $('#input-command').val(current_command)
+                    }else{
+                        $('#input-command').val(command_list[command_index])
+                    }
+                }else{
+                    current_command = '';
+                    command_index = command_list.length;
+                }
+            });
+
 		},
         open: function(){
             if (!$("body").hasClass("sidebar-is-expanded")){
