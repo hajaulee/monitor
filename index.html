@@ -502,6 +502,9 @@ function on_item_click_i(i){
         for (let j = 0; j < pre_tab.length; j++){
             $(pre_tab[j]).scrollTop(pre_tab[j].scrollHeight);
         }
+        if (i == 0){
+            $('.on-exp').slideUp()
+        }
     }
     return on_item_click
 }
