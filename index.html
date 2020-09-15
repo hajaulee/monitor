@@ -371,8 +371,11 @@ function update_param(data){
 }
 
 function update_log(data){
-    $('.logs-panel pre').append($("<div>").text(data.val()).html() + '\n')
-    $(".logs-panel pre").scrollTop($(".logs-panel pre")[0].scrollHeight);
+	let e = $('.logs-panel pre')
+    e.append($("<div>").text(data.val()).html() + '\n');
+    if (e[0].scrollHeight - e[0].scrollTop - e[0].clientHeight < 169){
+    	e.scrollTop(e[0].scrollHeight);
+    }
 }
 
 function update_result(data){
